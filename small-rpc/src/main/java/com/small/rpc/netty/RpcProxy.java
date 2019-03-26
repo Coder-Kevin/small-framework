@@ -35,7 +35,7 @@ public class RpcProxy {
                         request.setParameters(args);
 
                         if (serviceDiscovery != null) {
-                            serverAddress = serviceDiscovery.discover(); // 发现服务
+//                            serverAddress = serviceDiscovery.discover(); // 发现服务
                         }
 
                         String[] array = serverAddress.split(":");
