@@ -1,4 +1,4 @@
-package com.small.rpc.registry;
+package com.small.rpc.service.registry;
 
 import com.small.rpc.common.Constants;
 import org.apache.zookeeper.*;
@@ -12,13 +12,16 @@ public class ServiceRegistry {
 
     private CountDownLatch latch = new CountDownLatch(1);
 
-    private String registryHost;
+//    private String registryHost;
+//
+//    private int registryPort;
 
-    private int registryPort;
+    private String registryAddress;
 
-    public ServiceRegistry(String registryHost, int registryPort){
-        this.registryHost = registryHost;
-        this.registryPort = registryPort;
+    public ServiceRegistry(String registryAddress){
+//        this.registryHost = registryHost;
+//        this.registryPort = registryPort;
+        this.registryAddress = registryAddress;
     }
 
     public void register(String data) {
@@ -43,7 +46,7 @@ public class ServiceRegistry {
     private ZooKeeper connectServer(){
         ZooKeeper zooKeeper = null;
         try {
-            zooKeeper = new ZooKeeper(registryHost + ":" + registryPort, Constants.ZK_SESSION_TIMEOUT, new Watcher() {
+            zooKeeper = new ZooKeeper(registryAddress, Constants.ZK_SESSION_TIMEOUT, new Watcher() {
                 public void process(WatchedEvent watchedEvent) {
                     if (watchedEvent.getState() == Event.KeeperState.SyncConnected) {
                         latch.countDown();
