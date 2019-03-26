@@ -1,5 +1,7 @@
-package com.small.rpc.netty;
+package com.small.rpc.netty.server;
 
+import com.small.rpc.netty.RpcRequest;
+import com.small.rpc.netty.RpcResponse;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

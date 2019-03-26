@@ -1,7 +1,11 @@
-package com.small.rpc.netty;
+package com.small.rpc.netty.server;
 
 import com.small.rpc.annotation.RpcService;
-import com.small.rpc.service.registry.ServiceRegistry;
+import com.small.rpc.netty.RpcRequest;
+import com.small.rpc.netty.RpcResponse;
+import com.small.rpc.netty.coder.RpcDecoder;
+import com.small.rpc.netty.coder.RpcEncoder;
+import com.small.rpc.service.ServiceRegistry;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -48,7 +52,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
                     .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
-                        protected void initChannel(SocketChannel socketChannel) throws Exception {
+                        protected void initChannel(SocketChannel socketChannel) {
                             socketChannel.pipeline()
                                     .addLast(new RpcDecoder(RpcRequest.class))
                                     .addLast(new RpcEncoder(RpcResponse.class))

@@ -1,4 +1,4 @@
-package com.small.rpc.netty;
+package com.small.rpc.netty.coder;
 
 import com.small.rpc.util.SerializationUtil;
 import io.netty.buffer.ByteBuf;

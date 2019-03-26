@@ -1,7 +1,8 @@
 package test;
 
-import com.service.HelloService;
-import com.small.rpc.netty.RpcProxy;
+
+import com.hello.HelloService;
+import com.small.rpc.netty.client.RpcProxy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

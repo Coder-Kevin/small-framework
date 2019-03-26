@@ -1,5 +1,9 @@
-package com.small.rpc.netty;
+package com.small.rpc.netty.client;
 
+import com.small.rpc.netty.RpcRequest;
+import com.small.rpc.netty.RpcResponse;
+import com.small.rpc.netty.coder.RpcDecoder;
+import com.small.rpc.netty.coder.RpcEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -22,16 +26,16 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, RpcResponse response) throws Exception {
+    public void channelRead0(ChannelHandlerContext ctx, RpcResponse response) {
         this.response = response;
 
-        synchronized (obj) {
-            obj.notifyAll(); // 收到响应，唤醒线程
-        }
+//        synchronized (obj) {
+//            obj.notifyAll(); // 收到响应，唤醒线程
+//        }
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         log.error("client caught exception", cause);
         ctx.close();
     }
@@ -55,9 +59,9 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
             ChannelFuture future = bootstrap.connect(host, port).sync();
             future.channel().writeAndFlush(request).sync();
 
-            synchronized (obj) {
-                obj.wait(); // 未收到响应，使线程等待
-            }
+//            synchronized (obj) {
+//                obj.wait(); // 未收到响应，使线程等待
+//            }
 
             if (response != null) {
                 future.channel().closeFuture().sync();
