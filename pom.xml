@@ -10,9 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>small-rpc</module>
-        <module>small-client</module>
-        <module>sample-api</module>
-        <module>sample-service</module>
+        <module>examples</module>
     </modules>
 
 

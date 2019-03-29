@@ -5,9 +5,10 @@
 
 项目简单介绍：
     small-rpc:rpc简单封装,jar包引用；
-    small-client：demo测试，消费者项目；
-    small-service：demo测试，服务接口的实现，服务提供者；
-    small-api:demo测试，服务接口。
+    examples:简单示例：
+        small-client：demo测试，消费者项目；
+        small-service：demo测试，服务接口的实现，服务提供者；
+        small-api:demo测试，服务接口。
     
     
 寄语：保持饥渴，保持学习，与君共勉。
