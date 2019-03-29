@@ -21,7 +21,6 @@ public class SerializationUtil {
     /**
      * 序列化（对象 -> 字节数组）
      */
-    @SuppressWarnings("unchecked")
     public static <T> byte[] serialize(T obj) {
         Class<T> cls = (Class<T>) obj.getClass();
         LinkedBuffer buffer = LinkedBuffer.allocate(LinkedBuffer.DEFAULT_BUFFER_SIZE);
@@ -49,7 +48,6 @@ public class SerializationUtil {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static <T> Schema<T> getSchema(Class<T> cls) {
         Schema<T> schema = (Schema<T>) cachedSchema.get(cls);
         if (schema == null) {

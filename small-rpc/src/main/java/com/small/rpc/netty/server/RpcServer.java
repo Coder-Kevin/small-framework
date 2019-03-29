@@ -67,15 +67,11 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             log.info("server started on port{}",Integer.valueOf(hostAndPortArr[1]));
 
             if(serviceRegistry != null){
-//                serviceRegistry.register(serverAddress);
-
                 for (String interfaceName : handlerMap.keySet()) {
                     serviceRegistry.register(interfaceName, serverAddress);
                     log.debug("register service: {} => {}", interfaceName, serverAddress);
                 }
-
             }
-
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
             log.error(e.getMessage());

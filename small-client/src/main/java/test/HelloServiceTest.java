@@ -1,6 +1,5 @@
 package test;
 
-
 import com.hello.HelloService;
 import com.small.rpc.netty.client.RpcProxy;
 import org.junit.Assert;
@@ -20,7 +19,8 @@ public class HelloServiceTest {
     @Test
     public void helloTest() {
         HelloService helloService = rpcProxy.create(HelloService.class);
-        String result = helloService.hello("World");
+        String result = helloService.hello("Boy!Thw world welcome u!");
+        System.out.println(result);
         Assert.assertEquals("Hello, World", result);
     }
 }

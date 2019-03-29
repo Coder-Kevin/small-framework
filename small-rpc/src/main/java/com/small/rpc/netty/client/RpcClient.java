@@ -18,8 +18,6 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
 
     private RpcResponse response;
 
-    private final Object obj = new Object();
-
     public RpcClient(String host, int port) {
         this.host = host;
         this.port = port;
@@ -28,10 +26,6 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
     @Override
     public void channelRead0(ChannelHandlerContext ctx, RpcResponse response) {
         this.response = response;
-
-//        synchronized (obj) {
-//            obj.notifyAll(); // 收到响应，唤醒线程
-//        }
     }
 
     @Override
@@ -56,16 +50,13 @@ public class RpcClient extends SimpleChannelInboundHandler<RpcResponse> {
                     })
                     .option(ChannelOption.SO_KEEPALIVE, true);
 
+            // 连接 RPC 服务器
             ChannelFuture future = bootstrap.connect(host, port).sync();
-            future.channel().writeAndFlush(request).sync();
-
-//            synchronized (obj) {
-//                obj.wait(); // 未收到响应，使线程等待
-//            }
-
-            if (response != null) {
-                future.channel().closeFuture().sync();
-            }
+            // 写入 RPC 请求数据并关闭连接
+            Channel channel = future.channel();
+            channel.writeAndFlush(request).sync();
+            channel.closeFuture().sync();
+            // 返回 RPC 响应对象
             return response;
         } finally {
             group.shutdownGracefully();

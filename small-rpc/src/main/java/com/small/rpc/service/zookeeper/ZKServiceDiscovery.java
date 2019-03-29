@@ -5,7 +5,6 @@ import com.small.rpc.service.ServiceDiscovery;
 import lombok.extern.slf4j.Slf4j;
 import org.I0Itec.zkclient.ZkClient;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.zookeeper.ZooKeeper;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

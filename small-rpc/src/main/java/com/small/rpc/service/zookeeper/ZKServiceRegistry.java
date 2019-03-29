@@ -16,7 +16,7 @@ public class ZKServiceRegistry implements ServiceRegistry {
 
     @Override
     public void register(String serviceName, String serviceAddress) {
-    // 创建 registry 节点（持久）
+        // 创建 registry 节点（持久）
         String registryPath = Constants.ZK_REGISTRY_PATH;
         if (!zkClient.exists(registryPath)) {
             zkClient.createPersistent(registryPath);

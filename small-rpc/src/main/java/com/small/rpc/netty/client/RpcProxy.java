@@ -3,10 +3,12 @@ package com.small.rpc.netty.client;
 import com.small.rpc.netty.RpcRequest;
 import com.small.rpc.netty.RpcResponse;
 import com.small.rpc.service.ServiceDiscovery;
+import lombok.extern.slf4j.Slf4j;
 
 import java.lang.reflect.Proxy;
 import java.util.UUID;
 
+@Slf4j
 public class RpcProxy {
     private String serverAddress;
     private ServiceDiscovery serviceDiscovery;
@@ -19,7 +21,6 @@ public class RpcProxy {
         this.serviceDiscovery = serviceDiscovery;
     }
 
-    @SuppressWarnings("unchecked")
     public <T> T create(Class<?> interfaceClass) {
         return (T) Proxy.newProxyInstance(
                 interfaceClass.getClassLoader(),
@@ -33,7 +34,9 @@ public class RpcProxy {
                     request.setParameters(args);
 
                     if (serviceDiscovery != null) {
-//                            serverAddress = serviceDiscovery.discover(); // 发现服务
+                        String serviceName = interfaceClass.getName();
+                        serverAddress = serviceDiscovery.discover(serviceName);
+                        log.debug("discover service: {} => {}", serviceName, serverAddress);
                     }
 
                     String[] array = serverAddress.split(":");
