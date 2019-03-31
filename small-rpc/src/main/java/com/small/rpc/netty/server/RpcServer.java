@@ -64,7 +64,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
 
             String[] hostAndPortArr = serverAddress.split(":");
             ChannelFuture channelFuture = serverBootstrap.bind(hostAndPortArr[0],Integer.valueOf(hostAndPortArr[1])).sync();
-            log.info("server started on port{}",Integer.valueOf(hostAndPortArr[1]));
+            log.info("server started on port:{}",Integer.valueOf(hostAndPortArr[1]));
 
             if(serviceRegistry != null){
                 for (String interfaceName : handlerMap.keySet()) {
@@ -74,7 +74,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             }
             channelFuture.channel().closeFuture().sync();
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error("服务启动出错:"+e.getMessage());
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
