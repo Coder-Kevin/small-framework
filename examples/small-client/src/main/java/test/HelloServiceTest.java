@@ -1,6 +1,7 @@
 package test;
 
 import com.hello.HelloService;
+import com.hello.model.User;
 import com.small.rpc.netty.client.RpcProxy;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -24,5 +25,14 @@ public class HelloServiceTest {
         String result = helloService.hello("Boy!The world welcome u!");
         log.info("服务调用结果:{}",result);
         Assert.assertEquals("Hello, Boy!The world welcome u!", result);
+    }
+
+    @Test
+    public void testObject(){
+        HelloService helloService = rpcProxy.create(HelloService.class);
+        User user = new User();
+        user.setName("hello");
+        User result = helloService.testGetUser(user);
+        log.info("服务调用结果:{}",result.getName());
     }
 }
