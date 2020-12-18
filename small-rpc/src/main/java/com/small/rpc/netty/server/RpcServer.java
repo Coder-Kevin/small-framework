@@ -27,11 +27,11 @@ import java.util.Map;
 @Slf4j
 public class RpcServer implements ApplicationContextAware, InitializingBean {
 
-    private String serverAddress;
+    private final String serverAddress;
 
     private ServiceRegistry serviceRegistry;
 
-    private Map<String, Object> handlerMap = new HashMap<>();
+    private final Map<String, Object> handlerMap = new HashMap<>();
 
     public RpcServer(String serverAddress){
         this.serverAddress = serverAddress;
@@ -42,7 +42,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
         this.serviceRegistry = serviceRegistry;
     }
 
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
@@ -63,7 +63,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
             .childOption(ChannelOption.SO_KEEPALIVE,true);
 
             String[] hostAndPortArr = serverAddress.split(":");
-            ChannelFuture channelFuture = serverBootstrap.bind(hostAndPortArr[0],Integer.valueOf(hostAndPortArr[1])).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(hostAndPortArr[0],Integer.parseInt(hostAndPortArr[1])).sync();
             log.info("server started on port:{}",Integer.valueOf(hostAndPortArr[1]));
 
             if(serviceRegistry != null){
@@ -85,9 +85,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         Map<String, Object> serviceBeanMap = applicationContext.getBeansWithAnnotation(RpcService.class);
         if(MapUtils.isNotEmpty(serviceBeanMap)){
-            serviceBeanMap.forEach((key, value) -> {
-                handlerMap.put(value.getClass().getAnnotation(RpcService.class).value().getName(),value);
-            });
+            serviceBeanMap.forEach((key, value) -> handlerMap.put(value.getClass().getAnnotation(RpcService.class).value().getName(),value));
         }
     }
 }

@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 public class ZKServiceDiscovery implements ServiceDiscovery {
 
-    private String registryAddress;
+    private final String registryAddress;
 
     public ZKServiceDiscovery(String registryAddress) {
         this.registryAddress = registryAddress;

@@ -8,7 +8,7 @@ import org.I0Itec.zkclient.ZkClient;
 @Slf4j
 public class ZKServiceRegistry implements ServiceRegistry {
 
-    private ZkClient zkClient;
+    private final ZkClient zkClient;
 
     public ZKServiceRegistry(String registryAddress){
         zkClient = new ZkClient(registryAddress, Constants.ZK_SESSION_TIMEOUT, Constants.ZK_CONNECTION_TIMEOUT);
