@@ -7,18 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * CopyRight工具类  * @author wangguodong  * @email wangguodong@veredholdings.com
+ * CopyRight工具类
+ * @author wangguodong
  */
 public final class CopyrightUtil {
     private CopyrightUtil() {
     }
 
     public static void main(String[] args) throws Exception {
-        addCopyRight2JavaFile("D:\\vered_workspace\\bigtree\\bigtree-parent\\bigtree-base\\bigtree-utils\\src\\main\\java\\com\\bigtreefinance\\utlis\\CollectionUtil.java", getCopyRightMap());
+        addCopyRight2JavaFile("", getCopyRightMap());
     }
 
     /**
-     * * @param path 文件路径  * @param copyRightContent copyright模板  * @throws Exception
+     * @param path 文件路径
+     * @param copyRightContent copyright模板
+     * @throws Exception
      */
     public static void addCopyRight2JavaFile(String path, List<String> copyRightContent) throws Exception {
         File file = new File(path);
